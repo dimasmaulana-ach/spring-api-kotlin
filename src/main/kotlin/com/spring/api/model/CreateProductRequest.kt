@@ -1,7 +1,6 @@
 package com.spring.api.model
 
 data class CreateProductRequest (
-    val id : String,
 
     val name : String,
 

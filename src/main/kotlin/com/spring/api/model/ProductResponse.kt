@@ -1,10 +1,10 @@
 package com.spring.api.model
 
-import java.util.Date
+import java.util.*
 
 data class ProductResponse(
 
-    val id: String,
+    val id: UUID,
 
     val name: String,
 
