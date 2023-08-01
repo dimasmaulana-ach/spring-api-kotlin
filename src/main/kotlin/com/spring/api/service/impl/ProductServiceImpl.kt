@@ -7,12 +7,16 @@ import com.spring.api.model.ProductResponse
 import com.spring.api.model.UpdateProductRequest
 import com.spring.api.repository.ProductRepository
 import com.spring.api.service.ProductService
+import com.spring.api.validation.ValidationUtil
 import org.springframework.stereotype.Service
 import java.util.Date
 import java.util.UUID
 
 @Service
-class ProductServiceImpl(val productRepository: ProductRepository): ProductService {
+class ProductServiceImpl(
+    val productRepository: ProductRepository,
+    val validationUtil: ValidationUtil
+): ProductService {
     override fun getProducts(): MutableList<Products> {
         return productRepository.findAll();
     }
@@ -22,11 +26,13 @@ class ProductServiceImpl(val productRepository: ProductRepository): ProductServi
     }
 
     override fun createProduct(createProductRequest: CreateProductRequest): ProductResponse {
+        validationUtil.validate(createProductRequest)
+
         val product = Products(
             id = UUID.randomUUID(),
-            name = createProductRequest.name,
-            price = createProductRequest.price,
-            quantity = createProductRequest.quantity,
+            name = createProductRequest.name!!,
+            price = createProductRequest.price!!,
+            quantity = createProductRequest.quantity!!,
             createdAt = Date(),
             updatedAt = null
         )

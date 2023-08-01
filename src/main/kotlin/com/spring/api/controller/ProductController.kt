@@ -16,9 +16,7 @@ import java.util.UUID
 class ProductController(val productService: ProductService) {
 
     @GetMapping(
-        value = ["/api/v1/products"],
-        produces = ["application/json"],
-        consumes = ["application/json"]
+        value = ["/api/v1/products"]
     )
     fun getProduct(): WebResponse<MutableList<Products>> {
         val productResponse = productService.getProducts();
@@ -30,9 +28,7 @@ class ProductController(val productService: ProductService) {
     }
 
     @GetMapping(
-        value = ["/api/v1/products/{id}"],
-        produces = ["application/json"],
-        consumes = ["application/json"]
+        value = ["/api/v1/products/{id}"]
     )
     fun getProductById(@PathVariable id: UUID): WebResponse<Products?> {
         val productResponse = productService.getProductId(id);
